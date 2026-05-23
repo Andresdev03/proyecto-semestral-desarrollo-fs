@@ -1,5 +1,9 @@
 package org.example.contrato.Model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -14,22 +18,41 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 
-public class ContratoModel {
+@Entity
+@Table (name= "contrato")
+public class Contrato {
+
     @NotNull(message = "El contrato debe tener ID.")
-    Integer idContrato;
+    @Id
+    @Column(name = "id_contrato")
+    private Integer idContrato;
+
     @NotBlank(message = "El contrato debe tener un tipo.")
-    String tipoContrato;
+    @Column(name = "tipo_contrato")
+    private String tipoContrato;
+
     @NotBlank(message = "El contrato debe tener un cargo.")
-    String cargoContrato;
+    @Column(name = "cargo_contrato")
+    private String cargoContrato;
+
     @NotNull(message = "El contrato debe tener fecha de inicio.")
-    Date fecIniContrato;
+    @Column(name = "fec_ini_contrato")
+    private Date fecIniContrato;
+
     // nullable
-    Date fecFinContrato;
+    @Column(name = "fec_fin_contrato")
+    private Date fecFinContrato;
+
     @NotNull(message = "El contrato debe tener un salario.")
-    BigDecimal salarioContrato;
+    @Column(name = "salario_contrato")
+    private BigDecimal salarioContrato;
+
     @NotBlank(message = "El contrato debe tener un rut de empleado.")
-    String runEmpleado;
+    @Column(name = "run_empleado")
+    private String runEmpleado;
+
     @NotNull(message = "El contrato debe tener un ID de Sucursal.")
-    Integer idSucursal;
+    @Column(name = "id_sucursal")
+    private Integer idSucursal;
 
 }
