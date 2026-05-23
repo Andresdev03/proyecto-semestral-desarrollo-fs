@@ -1,21 +1,32 @@
 package org.example.region.Controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.netflix.discovery.converters.Auto;
+import org.example.region.Model.RegionModel;
+import org.example.region.Repository.RegionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/region")
+@CrossOrigin(origins="*")
 public class RegionController {
-
-    @GetMapping("/saludo")
-    public Map<String, Object> saludo() {
-        return Map.of(
-                "microservicio", "region-service",
-                "estado", "activo",
-                "mensaje", "Microservicio Region funcionando correctamente"
-        );
+    @Autowired
+    private RegionRepository regionRepository;
+    // obtener las regiones
+    @GetMapping
+    public List<RegionModel>listarRegiones(){
+        return regionRepository.findAll();
     }
+   //Guardar una nueva region
+   @PostMapping
+   public ResponseEntity<RegionModel>crearRegion(@RequestBody RegionModel region){
+       RegionModel nuevaRegion = regionRepository.save(region);
+       return ResponseEntity.ok(nuevaRegion);
+   }
+
+
 }
