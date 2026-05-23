@@ -47,6 +47,38 @@ public class ContratoController {
         return new ResponseEntity<>(listaEncontrados, HttpStatus.OK);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Contrato> modificarPorId(@PathVariable Integer id, @Valid @RequestBody Contrato contrato){
+        Contrato contratoNuevo = contratoService.modificarPorId(id, contrato);
 
+        if (contratoNuevo== null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(contratoNuevo, HttpStatus.OK);
+
+
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Contrato> buscarPorId(@PathVariable Integer id){
+        Contrato contrato = contratoService.buscarPorId(id);
+        if (contrato == null){
+            return new ResponseEntity<>(contrato, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(contrato, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarPorId(@PathVariable Integer id){
+        boolean eliminado = contratoService.eliminarPorId(id);
+
+        if (!eliminado){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+    }
 
 }

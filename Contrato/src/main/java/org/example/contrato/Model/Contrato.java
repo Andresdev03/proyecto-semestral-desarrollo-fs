@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 
 @AllArgsConstructor
@@ -37,11 +37,11 @@ public class Contrato {
 
     @NotNull(message = "El contrato debe tener fecha de inicio.")
     @Column(name = "fec_ini_contrato")
-    private Date fecIniContrato;
+    private LocalDate fecIniContrato;
 
     // nullable
     @Column(name = "fec_fin_contrato")
-    private Date fecFinContrato;
+    private LocalDate fecFinContrato;
 
     @NotNull(message = "El contrato debe tener un salario.")
     @Column(name = "salario_contrato")

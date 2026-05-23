@@ -1,4 +1,5 @@
 package org.example.empleado.Model;
 
-public class EmpleadoModel {
+public class Empleado {
+
 }

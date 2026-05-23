@@ -33,6 +33,39 @@ public class ContratoService {
         return contratoRepository.findBySalarioContrato(salario);
     }
 
+    public Contrato buscarPorId(Integer idContrato){
+        return contratoRepository.findById(idContrato).orElse(null);
+    }
+
+
+    public Contrato modificarPorId(Integer idContrato, Contrato contratoModificado){
+        Contrato contratoOriginal = buscarPorId(idContrato);
+        if (contratoOriginal == null){
+            return null;
+        }
+        contratoOriginal.setTipoContrato(contratoModificado.getTipoContrato());
+        contratoOriginal.setCargoContrato(contratoModificado.getCargoContrato());
+        contratoOriginal.setFecIniContrato(contratoModificado.getFecIniContrato());
+        contratoOriginal.setFecFinContrato(contratoModificado.getFecFinContrato());
+        contratoOriginal.setSalarioContrato(contratoModificado.getSalarioContrato());
+        contratoOriginal.setRunEmpleado(contratoModificado.getRunEmpleado());
+        contratoOriginal.setIdSucursal(contratoModificado.getIdSucursal());
+        return contratoRepository.save(contratoOriginal);
+
+    }
+
+    public boolean eliminarPorId(Integer idContrato){
+        Contrato contrato = buscarPorId(idContrato);
+
+        if (contrato == null){
+            return false;
+        }
+
+        contratoRepository.deleteById(idContrato);
+        return true;
+    }
+
+
 
 
 }
