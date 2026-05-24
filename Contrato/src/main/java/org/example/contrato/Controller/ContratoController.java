@@ -64,7 +64,7 @@ public class ContratoController {
     public ResponseEntity<Contrato> buscarPorId(@PathVariable Integer id){
         Contrato contrato = contratoService.buscarPorId(id);
         if (contrato == null){
-            return new ResponseEntity<>(contrato, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(contrato, HttpStatus.OK);
