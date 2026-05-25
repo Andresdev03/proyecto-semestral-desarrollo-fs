@@ -20,6 +20,4 @@ public interface ContratoRepository extends JpaRepository<Contrato, Integer> {
     List<Contrato> findBySalarioContrato (BigDecimal salarioContrato);
 
 
-    List<Contrato> findByIdSucursal (Integer idSucursal);
-
 }
