@@ -17,9 +17,14 @@ public class ProductoModel {
     private  Integer idProducto;
     @Column(name = "nombre_producto", nullable = false,length = 100)
     private  String nombreProducto;
+    @Column(name = "descripcion_producto",length = 300)
+    private String descripcionProducto;
     @Column(name = "precio", nullable = false)
     private Double precio;
-    @Column(name = "id_sucursal",nullable = false)
-    private Integer idSucursal;
+    @Column(name = "categoria_producto",nullable = false,length = 50)
+    private String categoriaProducto;
+    @Column(name = "disponible_producto",nullable = false,length = 1)
+    private String disponibleProducto;
+
 
 }

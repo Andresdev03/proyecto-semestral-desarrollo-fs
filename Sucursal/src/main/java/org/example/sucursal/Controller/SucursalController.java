@@ -1,7 +1,6 @@
 package org.example.sucursal.Controller;
 
 import org.example.sucursal.Model.SucursalModel;
-import org.example.sucursal.Repository.SucursalRepository;
 import org.example.sucursal.Service.SucursalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +41,7 @@ public class SucursalController {
     public ResponseEntity<SucursalModel>crearSucursal(@RequestBody SucursalModel sucursal){
         SucursalModel nuevaSucursal =sucursalService.agregarSucursal(sucursal);
         if (nuevaSucursal !=null){
-            return  new ResponseEntity<>(HttpStatus.CREATED);
+            return  new ResponseEntity<>(nuevaSucursal, HttpStatus.CREATED);
         }else{
             return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -52,7 +51,7 @@ public class SucursalController {
     public  ResponseEntity<SucursalModel> actualizarSucursal(@PathVariable Integer id,@RequestBody SucursalModel nuevo){
         SucursalModel actualizado= sucursalService.actualizarSucursal(id, nuevo);
         if(actualizado!=null){
-            return  new ResponseEntity<>(HttpStatus.OK);
+            return  new ResponseEntity<>(actualizado,HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

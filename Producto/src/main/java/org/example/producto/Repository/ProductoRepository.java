@@ -8,5 +8,4 @@ import java.util.List;
 
 @Repository
 public interface ProductoRepository extends JpaRepository<ProductoModel, Integer> {
-List<ProductoModel> findByIdSucursal(Integer idSucursal);
 }

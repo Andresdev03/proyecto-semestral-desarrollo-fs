@@ -28,15 +28,7 @@ public class ProductoController {
         }
     }
 
-    @GetMapping ("/sucursal/{idSucursal}")
-    public ResponseEntity<List<ProductoModel>> listarPorSucursal(@PathVariable Integer idSucursal){
-        List<ProductoModel>listado = productoService.listarPorSucursal(idSucursal);
-        if (listado.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }else{
-            return  new ResponseEntity<>(listado,HttpStatus.OK);
-        }
-    }
+
     @PostMapping
     public ResponseEntity<ProductoModel>crearProducto(@RequestBody ProductoModel producto){
       ProductoModel nuevoProducto=productoService.agregarProducto(producto);
@@ -59,7 +51,7 @@ public class ProductoController {
 
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarSucursal(@PathVariable Integer id){
+    public ResponseEntity<Void> eliminarProducto(@PathVariable Integer id){
         boolean res= productoService.borrarProducto(id);
         if (res){
             return  new ResponseEntity<>(HttpStatus.OK);

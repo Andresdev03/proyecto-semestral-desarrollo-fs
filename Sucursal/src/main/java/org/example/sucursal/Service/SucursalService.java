@@ -38,6 +38,9 @@ public class SucursalService {
             if(sucursal!=null){
                 sucursal.setNombreSucursal(nuevo.getNombreSucursal());
                 sucursal.setDireccion(nuevo.getDireccion());
+                sucursal.setTelefonoSucursal(nuevo.getTelefonoSucursal());
+                sucursal.setEmailSucursal(nuevo.getEmailSucursal());
+                sucursal.setFecAperturaSucursal(nuevo.getFecAperturaSucursal());
                 sucursal.setIdComuna(nuevo.getIdComuna());
                 return  sucursalRepository.save(sucursal);
             }

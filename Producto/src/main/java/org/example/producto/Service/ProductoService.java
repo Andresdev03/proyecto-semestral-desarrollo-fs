@@ -33,14 +33,16 @@ public class ProductoService {
             ProductoModel producto = productoRepository.findById(id).orElse(null);
             if (producto != null){
                 producto.setNombreProducto(nuevo.getNombreProducto());
+                producto.setDescripcionProducto(nuevo.getDescripcionProducto());
                 producto.setPrecio(nuevo.getPrecio());
+                producto.setCategoriaProducto(nuevo.getCategoriaProducto());
+                producto.setDisponibleProducto(nuevo.getDisponibleProducto());
+
                 return  productoRepository.save(producto);
             }
         }
         return null;
     }
 
-    public  List<ProductoModel>listarPorSucursal(Integer idSucursal){
-        return  productoRepository.findByIdSucursal(idSucursal);
-    }
+
 }
