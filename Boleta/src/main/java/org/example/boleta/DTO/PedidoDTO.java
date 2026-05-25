@@ -7,7 +7,7 @@ import java.time.LocalDate;
 @Data
 public class PedidoDTO {
 
-    private Integer id;
+    private Integer idPedido;
 
     private LocalDate fecPedido;
 

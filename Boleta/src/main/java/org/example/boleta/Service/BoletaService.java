@@ -37,7 +37,7 @@ public class BoletaService {
 
     public List<Boleta> buscarPorIdPedido(Integer idPedido){
         pedidoClient.getPedido(idPedido);
-        return boletaRepository.findByPedidoId(idPedido);
+        return boletaRepository.findByIdPedido(idPedido);
     }
 
 
