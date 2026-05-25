@@ -1,4 +1,8 @@
 package org.example.ingrediente.Repository;
 
-public class IngredienteRepository {
+import org.example.ingrediente.Model.IngredienteModel;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface IngredienteRepository extends JpaRepository<IngredienteModel, Integer> {
+
 }
