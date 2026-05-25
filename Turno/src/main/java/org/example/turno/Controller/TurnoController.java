@@ -18,6 +18,8 @@ public class TurnoController {
     @Autowired
     private TurnoService turnoService;
 
+
+
     @PostMapping
     public ResponseEntity<Turno> registrar (@Valid @RequestBody Turno turno){
         turnoService.registrar(turno);
@@ -31,6 +33,17 @@ public class TurnoController {
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 
+    @GetMapping("/empleados/{runEmpleado}")
+    public ResponseEntity<List<Turno>> buscarPorRunEmpleado (@PathVariable String runEmpleado){
+        List<Turno> lista = turnoService.buscarPorRunEmpleado(runEmpleado);
+        return new ResponseEntity<>(lista, HttpStatus.OK);
+    }
+
+    @GetMapping("/sucursal/{idSucursal}")
+    public ResponseEntity<List<Turno>> buscarPorIdSucursal(@PathVariable Integer idSucursal){
+        List<Turno> lista = turnoService.buscarPorIdSucursal(idSucursal);
+        return new ResponseEntity<>(lista, HttpStatus.OK);
+    }
 
     @GetMapping("/fechaTurno/{fechaCreacionBoleta}")
     public ResponseEntity<List<Turno>> buscarPorFechaTurno(@PathVariable LocalDate fechaCreacionBoleta){

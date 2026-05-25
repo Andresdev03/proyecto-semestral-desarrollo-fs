@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface BoletaRepository extends JpaRepository<Boleta, Integer> {
 
-    List<Boleta> findByFecCreacionBoleta(LocalDate fecCreacionBoleta);
-    List<Boleta> findByMetodoPagoBoleta(String metodoPagoBoleta);
-
+    List<Boleta> findByFecCreacionBoleta (LocalDate fecCreacionBoleta);
+    List<Boleta> findByMetodoPagoBoleta (String metodoPagoBoleta);
+    List<Boleta> findByIdPedido(Integer idPedido);
 
 
 
