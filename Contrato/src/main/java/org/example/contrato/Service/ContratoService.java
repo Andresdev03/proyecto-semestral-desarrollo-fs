@@ -1,8 +1,6 @@
 package org.example.contrato.Service;
 
 
-import org.example.contrato.Client.EmpleadoClient;
-import org.example.contrato.Client.SucusalClient;
 import org.example.contrato.Model.Contrato;
 import org.example.contrato.Repository.ContratoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +14,6 @@ public class ContratoService {
     @Autowired
     private ContratoRepository contratoRepository;
 
-    @Autowired
-    private EmpleadoClient empleadoClient;
-
-    @Autowired
-    private SucusalClient sucusalClient;
-
 
     public Contrato registrar(Contrato contrato){
         return contratoRepository.save(contrato);
@@ -33,14 +25,8 @@ public class ContratoService {
         return contratoRepository.findAll();
     }
 
-    public List<Contrato> buscarPorRunEmpleado(String runEmpleado){
-        empleadoClient.getEmpleado(runEmpleado);
+    public List<Contrato> buscarPorRun(String runEmpleado){
         return contratoRepository.findByRunEmpleado(runEmpleado);
-    }
-
-    public List<Contrato> buscarPorIdSucursal(Integer idSucursal){
-        sucusalClient.getSucursal(idSucursal);
-        return contratoRepository.findByIdSucursal(idSucursal);
     }
 
     public List<Contrato> buscarPorSalario(BigDecimal salario){
