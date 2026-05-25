@@ -1,5 +1,8 @@
 package org.example.turno.Service;
 
+import org.example.turno.Client.EmpleadoClient;
+
+import org.example.turno.Client.SucursalClient;
 import org.example.turno.Model.Turno;
 import org.example.turno.Repository.TurnoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,12 @@ public class TurnoService {
 
     @Autowired
     private TurnoRepository turnoRepository;
+
+    @Autowired
+    private EmpleadoClient empleadoClient;
+
+    @Autowired
+    private SucursalClient sucursalClient;
 
 
     public Turno registrar(Turno turno){
@@ -34,6 +43,18 @@ public class TurnoService {
     public Turno buscarPorId(Integer idTurno){
         return turnoRepository.findById(idTurno).orElse(null);
     }
+
+    public List<Turno> buscarPorRunEmpleado(String runEmpleado){
+        empleadoClient.getEmpleado(runEmpleado);
+        return turnoRepository.findByRunEmpleado(runEmpleado);
+
+    }
+
+    public List<Turno> buscarPorIdSucursal(Integer idSucursal){
+        sucursalClient.getSucursal(idSucursal);
+        return turnoRepository.findByIdSucursal(idSucursal);
+    }
+
 
     public Turno modificarPorId(Integer idTurno, Turno turnoModificado){
         Turno turnoOriginal = buscarPorId(idTurno);

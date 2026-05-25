@@ -1,5 +1,6 @@
 package org.example.boleta.Service;
 
+import org.example.boleta.Client.PedidoClient;
 import org.example.boleta.Model.Boleta;
 import org.example.boleta.Repository.BoletaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ public class BoletaService {
 
     @Autowired
     private BoletaRepository boletaRepository;
+
+    @Autowired
+    private PedidoClient pedidoClient;
 
     public Boleta registrar(Boleta boleta){
         return boletaRepository.save(boleta);
@@ -30,6 +34,12 @@ public class BoletaService {
     public List<Boleta> buscarPorMetodoPago(String metodoPagoBoleta){
         return boletaRepository.findByMetodoPagoBoleta(metodoPagoBoleta);
     }
+
+    public List<Boleta> buscarPorIdPedido(Integer idPedido){
+        pedidoClient.getPedido(idPedido);
+        return boletaRepository.findByPedidoId(idPedido);
+    }
+
 
     public Boleta buscarPorId(Integer idBoleta){
         return boletaRepository.findById(idBoleta).orElse(null);

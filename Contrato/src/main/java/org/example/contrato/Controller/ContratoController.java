@@ -35,11 +35,18 @@ public class ContratoController {
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 
-    @GetMapping("/run/{runEmpleado}")
-    public ResponseEntity<List<Contrato>> buscarPorRun(@PathVariable String runEmpleado){
-        List<Contrato> listaEncontrados = contratoService.buscarPorRun(runEmpleado);
+    @GetMapping("/empleados/{runEmpleado}")
+    public ResponseEntity<List<Contrato>> buscarPorRunEmpleado(@PathVariable String runEmpleado){
+        List<Contrato> listaEncontrados = contratoService.buscarPorRunEmpleado(runEmpleado);
         return new ResponseEntity<>(listaEncontrados, HttpStatus.OK);
     }
+
+    @GetMapping("/sucursal/{idSucursal}")
+    public ResponseEntity<List<Contrato>> buscarPorIdSucursal (@PathVariable Integer idSucursal){
+        List<Contrato> lista = contratoService.buscarPorIdSucursal(idSucursal);
+        return new ResponseEntity<>(lista, HttpStatus.OK);
+    }
+
 
     @GetMapping("/salario/{salario}")
     public ResponseEntity<List<Contrato>> buscarPorSalario(@PathVariable BigDecimal salario){
