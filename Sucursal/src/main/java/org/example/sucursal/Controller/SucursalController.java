@@ -1,5 +1,7 @@
 package org.example.sucursal.Controller;
 
+import org.example.sucursal.Client.ComunaClient;
+import org.example.sucursal.DTO.ComunaDTO;
 import org.example.sucursal.Model.SucursalModel;
 import org.example.sucursal.Service.SucursalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,22 @@ import java.util.List;
 public class SucursalController {
     @Autowired
     private SucursalService sucursalService;
+
+    @Autowired
+    private ComunaClient comunaClient;
+
+
+    @GetMapping("/comuna-remota/{id}")
+    public ResponseEntity<?> obtenerComunaRemota(@PathVariable Integer id){
+        try{
+           ComunaDTO comuna= comunaClient.obtenerComunaPorId(id);
+            return ResponseEntity.ok(comuna);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al conectar con el microservicio: " + e.getMessage());
+        }
+
+    }
 
     @GetMapping("")
     public ResponseEntity<List<SucursalModel>> getAllSucursales(){

@@ -1,5 +1,7 @@
 package org.example.comuna.Controller;
 
+import org.example.comuna.Client.RegionClient;
+import org.example.comuna.DTO.RegionDTO;
 import org.example.comuna.Model.ComunaModel;
 import org.example.comuna.Repository.ComunaRepository;
 import org.example.comuna.Service.ComunaService;
@@ -11,11 +13,25 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping ("/api/comuna")
+@RequestMapping ("/api/comunas")
 @CrossOrigin(origins = "*")
 public class ComunaController {
     @Autowired
     private ComunaService comunaService;
+    @Autowired
+    private RegionClient regionClient;
+
+    @GetMapping("/region-remota/{id}")
+    public ResponseEntity<?> obtenerComunaRemota(@PathVariable Integer id){
+        try{
+           RegionDTO region= regionClient.obtenerRegionPorId(id);
+            return ResponseEntity.ok(region);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al conectar con el microservicio: " + e.getMessage());
+        }
+
+    }
 
     @GetMapping("")
     public ResponseEntity<List<ComunaModel>> listarComunas(){
