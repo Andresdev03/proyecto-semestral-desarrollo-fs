@@ -21,4 +21,5 @@ public class ProductoModel {
     private Double precio;
     @Column(name = "id_sucursal",nullable = false)
     private Integer idSucursal;
+
 }

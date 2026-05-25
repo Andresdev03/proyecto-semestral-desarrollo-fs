@@ -2,54 +2,68 @@ package org.example.sucursal.Controller;
 
 import org.example.sucursal.Model.SucursalModel;
 import org.example.sucursal.Repository.SucursalRepository;
+import org.example.sucursal.Service.SucursalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/sucursales")
+@RequestMapping("/api/sucursal")
 @CrossOrigin(origins = "*")
 public class SucursalController {
     @Autowired
-    private SucursalRepository sucursalRepository;
+    private SucursalService sucursalService;
 
-    @GetMapping
-    public List<SucursalModel> listarSucursales(){
-        return sucursalRepository.findAll();
+    @GetMapping("")
+    public ResponseEntity<List<SucursalModel>> getAllSucursales(){
+        List<SucursalModel> listado= sucursalService.listarSucursales();
+        if (listado.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }else{
+            return new ResponseEntity<>(listado,HttpStatus.OK);
+        }
     }
+
 
     @GetMapping("/comuna/{idComuna}")
-    public List<SucursalModel>listarPorComuna(@PathVariable Integer idComuna){
-        return  sucursalRepository.findByIdComuna(idComuna);
+    public ResponseEntity<List<SucursalModel>> listarPorComuna(@PathVariable Integer idComuna){
+        List<SucursalModel> listado = sucursalService.listarPorComuna(idComuna);
+        if (listado.isEmpty()){
+            return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }else {
+            return  new ResponseEntity<>(listado, HttpStatus.OK);
+        }
     }
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<SucursalModel>crearSucursal(@RequestBody SucursalModel sucursal){
-        SucursalModel nuevaSucursal = sucursalRepository.save(sucursal);
-        return  ResponseEntity.ok(nuevaSucursal);
+        SucursalModel nuevaSucursal =sucursalService.agregarSucursal(sucursal);
+        if (nuevaSucursal !=null){
+            return  new ResponseEntity<>(HttpStatus.CREATED);
+        }else{
+            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
     }
     @PutMapping("/{id}")
-    public  ResponseEntity<SucursalModel> actualizarSucursal(@PathVariable Integer id,@RequestBody SucursalModel sucursalDetalles){
-        return  sucursalRepository.findById(id)
-                .map(sucursalExistente ->{
-                    sucursalExistente.setNombreSucursal((sucursalDetalles.getNombreSucursal()));
-                    sucursalExistente.setDireccion(sucursalDetalles.getDireccion());
-                    sucursalExistente.setIdComuna(sucursalDetalles.getIdComuna());
-                    SucursalModel sucursalActualizada = sucursalRepository.save(sucursalExistente);
-                    return ResponseEntity.ok(sucursalActualizada);
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public  ResponseEntity<SucursalModel> actualizarSucursal(@PathVariable Integer id,@RequestBody SucursalModel nuevo){
+        SucursalModel actualizado= sucursalService.actualizarSucursal(id, nuevo);
+        if(actualizado!=null){
+            return  new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarSucursal(@PathVariable Integer id){
-        return sucursalRepository.findById(id)
-                .map(sucursal->{
-                    sucursalRepository.delete(sucursal);
-                    return ResponseEntity.ok().<Void>build();
-                })
-                .orElse(ResponseEntity.notFound().build());
+       boolean res= sucursalService.borrarSucursal(id);
+       if (res){
+           return  new ResponseEntity<>(HttpStatus.OK);
+       }else{
+           return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+       }
     }
 }

@@ -3,7 +3,9 @@ package org.example.producto.Controller;
 import org.apache.coyote.Response;
 import org.example.producto.Model.ProductoModel;
 import org.example.producto.Repository.ProductoRepository;
+import org.example.producto.Service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,40 +16,55 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class ProductoController {
     @Autowired
-    private ProductoRepository productoRepository;
+    private ProductoService productoService;
 
-    @GetMapping
-    public List<ProductoModel> listarProductos(){
-        return productoRepository.findAll();
+    @GetMapping("")
+    public ResponseEntity<List<ProductoModel>> getAllProductos(){
+        List<ProductoModel>listado = productoService.listarProductos();
+        if (listado.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }else{
+            return  new ResponseEntity<>(listado,HttpStatus.OK);
+        }
     }
+
     @GetMapping ("/sucursal/{idSucursal}")
-    public List<ProductoModel>listarPorSucursal(@PathVariable Integer idSucursal){
-        return  productoRepository.findByIdSucursal(idSucursal);
+    public ResponseEntity<List<ProductoModel>> listarPorSucursal(@PathVariable Integer idSucursal){
+        List<ProductoModel>listado = productoService.listarPorSucursal(idSucursal);
+        if (listado.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }else{
+            return  new ResponseEntity<>(listado,HttpStatus.OK);
+        }
     }
     @PostMapping
     public ResponseEntity<ProductoModel>crearProducto(@RequestBody ProductoModel producto){
-      ProductoModel nuevoProducto=productoRepository.save(producto);
-      return ResponseEntity.ok(nuevoProducto);
+      ProductoModel nuevoProducto=productoService.agregarProducto(producto);
+      if (nuevoProducto !=null){
+          return  new ResponseEntity<>(nuevoProducto,HttpStatus.CREATED);
+      }else{
+          return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+      }
+
     }
     @PutMapping("/{id}")
-    public ResponseEntity<ProductoModel> actualizarProducto(@PathVariable Integer id, @RequestBody ProductoModel productoDetalles){
-      return productoRepository.findById(id)
-              .map(productoExistente ->{
-                  productoExistente.setNombreProducto(productoDetalles.getNombreProducto());
-                  productoExistente.setPrecio(productoDetalles.getPrecio());
-                  productoExistente.setIdSucursal(productoDetalles.getIdSucursal());
-                  ProductoModel productoActualizado = productoRepository.save(productoExistente);
-                  return ResponseEntity.ok(productoActualizado);
-              })
-              .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<ProductoModel> updateProducto(@PathVariable Integer id, @RequestBody ProductoModel nuevo){
+    ProductoModel actualizado = productoService.actualizarProducto(id, nuevo);
+    if (actualizado !=null){
+        return new ResponseEntity<>(actualizado,HttpStatus.OK);
+    }else{
+        return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void>eliminarProducto(@PathVariable Integer id){
-        return productoRepository.findById(id)
-                .map(producto ->{
-                    productoRepository.delete(producto);
-                    return ResponseEntity.ok().<Void>build();
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Void> eliminarSucursal(@PathVariable Integer id){
+        boolean res= productoService.borrarProducto(id);
+        if (res){
+            return  new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }
