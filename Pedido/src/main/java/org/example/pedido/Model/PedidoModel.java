@@ -31,7 +31,7 @@ public class PedidoModel {
     private Integer numMesa;
 
     @Column(name = "run_empleado", nullable = false)
-    private String runTrabajador;
+    private String runEmpleado;
 
     @Column(name = "id_sucursal", nullable = false)
     private Integer idSucursal;

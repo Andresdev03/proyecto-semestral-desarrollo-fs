@@ -15,7 +15,7 @@
 	<artifactId>region</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>region</name>
-	<description>Microservicio Region</description>
+	<description>Microservicio Boleta</description>
 
 	<properties>
 		<java.version>21</java.version>
@@ -46,6 +46,10 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.mysql</groupId>
