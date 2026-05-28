@@ -1,5 +1,6 @@
 package org.example.boleta.Service;
 
+import jakarta.validation.constraints.NotBlank;
 import org.example.boleta.Client.PedidoClient;
 import org.example.boleta.Model.Boleta;
 import org.example.boleta.Repository.BoletaRepository;

@@ -1,9 +1,6 @@
 package org.example.boleta.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -25,7 +22,7 @@ import java.time.LocalDate;
 public class Boleta {
 
     @Id
-    @NotNull(message = "Debe incluir un ID.")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_boleta")
     private Integer idBoleta;
 
