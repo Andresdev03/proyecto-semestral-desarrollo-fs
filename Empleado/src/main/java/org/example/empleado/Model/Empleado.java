@@ -1,10 +1,7 @@
 package org.example.empleado.Model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -24,6 +21,7 @@ import java.time.LocalDate;
 
 @Table(name = "empleado")
 public class Empleado {
+
     @Id
     @NotBlank(message = "Debe incluir run.")
     @Size(min = 7, max = 8)
@@ -38,12 +36,12 @@ public class Empleado {
     @NotBlank(message = "Debe incluir un correo.")
     @Email(message = "Debe cumplir con el formato de un correo.")
     @Size(max = 100)
-    @Column(name = "correo_empleado")
+    @Column(name = "correo_empleado", nullable = false, unique = true, length = 100)
     private String correoEmpleado;
 
     @NotBlank(message = "Debe incluir un teléfono.")
     @Size(max = 12)
-    @Column(name = "telefono_empleado")
+    @Column(name = "telefono_empleado", unique = true, length = 12)
     private String telefonoEmpleado;
 
     @NotBlank(message = "Debe incluir un nombre.")
