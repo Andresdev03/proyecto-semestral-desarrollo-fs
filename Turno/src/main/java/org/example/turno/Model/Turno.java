@@ -1,10 +1,11 @@
 package org.example.turno.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,43 +17,39 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "turno")
-
 public class Turno {
 
     @Id
-    @NotNull
-    @Column(name = "id_turno")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_turno", nullable = false)
     private Integer idTurno;
 
     @NotNull(message = "Debe incluir una fecha de turno.")
-    @Column(name = "fec_turno")
+    @Column(name = "fec_turno", nullable = false)
     private LocalDate fecTurno;
 
     @NotBlank(message = "Debe incluir una hora de inicio.")
-    @Size(min = 5, max = 5)
-    @Column(name = "hora_ini_turno")
+    @Size(min = 5, max = 5, message = "La hora de inicio debe tener formato HH:mm.")
+    @Column(name = "hora_ini_turno", nullable = false, length = 5)
     private String horaIniTurno;
 
-    @NotBlank(message = "Debe incluir una hora de final.")
-    @Size(min = 5, max = 5)
-    @Column(name = "hora_fin_turno")
+    @NotBlank(message = "Debe incluir una hora de fin.")
+    @Size(min = 5, max = 5, message = "La hora de fin debe tener formato HH:mm.")
+    @Column(name = "hora_fin_turno", nullable = false, length = 5)
     private String horaFinTurno;
 
-    @NotBlank(message = "Debe tener un tipo de turno.")
-    @Pattern(regexp = "Mañana|Tarde|Noche")
-    @Column(name = "tipo_turno")
+    @NotBlank(message = "Debe incluir un tipo de turno.")
+    @Pattern(regexp = "Mañana|Tarde|Noche", message = "El tipo de turno debe ser Mañana, Tarde o Noche.")
+    @Column(name = "tipo_turno", nullable = false, length = 20)
     private String tipoTurno;
 
-    @NotBlank
-    @Size(min = 7, max = 8)
-    @Column(name = "run_empleado")
+    @NotBlank(message = "Debe incluir el RUN del empleado.")
+    @Size(min = 7, max = 8, message = "El RUN del empleado debe tener entre 7 y 8 caracteres.")
+    @Column(name = "run_empleado", nullable = false, length = 8)
     private String runEmpleado;
 
-    @NotNull
-    @Positive
-    @Column(name = "id_sucursal")
+    @NotNull(message = "Debe incluir el id de la sucursal.")
+    @Positive(message = "El id de la sucursal debe ser mayor a 0.")
+    @Column(name = "id_sucursal", nullable = false)
     private Integer idSucursal;
-
-
-
 }
