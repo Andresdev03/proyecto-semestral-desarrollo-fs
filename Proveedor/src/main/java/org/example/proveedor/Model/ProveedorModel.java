@@ -1,6 +1,8 @@
 package org.example.proveedor.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,10 +17,13 @@ public class ProveedorModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_proveedor")
     private Integer id;
-
-    @Column(name="rut_proveedor", nullable=false, unique=true, length=12)
+    @NotBlank
+    @Size(min=9)
+    @Column(name="rut_proveedor", nullable=false, unique=true, length=9)
     private String rutProveedor;
 
+    @Size(min=1)
+    @NotBlank
     @Column(name="dv_proveedor", nullable=false, length=1, columnDefinition = "CHAR(1)")
     private Character dvProveedor;
 
