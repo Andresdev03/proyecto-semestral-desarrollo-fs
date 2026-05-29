@@ -1,5 +1,6 @@
 package org.example.empleado.Service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.empleado.Model.Empleado;
 import org.example.empleado.Repository.EmpleadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Slf4j
 public class EmpleadoService {
 
 
@@ -15,7 +17,13 @@ public class EmpleadoService {
     private EmpleadoRepository empleadoRepository;
 
     public Empleado registrar(Empleado empleado){
-        return empleadoRepository.save(empleado);
+        try{
+            log.info("Registrando empleado con RUN {}", empleado.getRunEmpleado());
+            return empleadoRepository.save(empleado);
+        } catch (Exception e){
+            log.error("Error al registrar empleado: {}", e.getMessage());
+            return null;
+        }
     }
 
     public List<Empleado> listarTodos(){
@@ -30,6 +38,7 @@ public class EmpleadoService {
         return  empleadoRepository.findByAppaternoEmpleado(appaternoEmpleado);
     }
     public Empleado buscarPorRun(String run){
+        log.info("Buscando empleado por RUN {}", run);
         return empleadoRepository.findById(run).orElse(null);
     }
     public Empleado modificarPorRun(String run, Empleado empleadoModificado){
@@ -51,17 +60,20 @@ public class EmpleadoService {
     }
 
     public boolean eliminarPorRun(String run){
-        Empleado empleado = buscarPorRun(run);
-
-        if (empleado == null){
+        try{
+            log.info("Eliminando empleado {}", run);
+            Empleado empleado = buscarPorRun(run);
+            if (empleado == null){
+                log.warn("No existe empleado con RUN {}", run);
+                return false;
+            }
+            log.info("Empleado eliminado {}", run);
+            empleadoRepository.deleteById(run);
+            return true;
+        } catch (Exception e){
+            log.error("Error al eliminar empleado {}", run, e);
             return false;
         }
-
-        empleadoRepository.deleteById(run);
-        return true;
-
-
-
     }
 
 
