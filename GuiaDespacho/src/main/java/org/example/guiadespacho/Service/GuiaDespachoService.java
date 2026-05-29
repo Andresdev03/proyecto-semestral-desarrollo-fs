@@ -16,27 +16,43 @@ public class GuiaDespachoService {
     private GuiaDespachoRepository guiaDespachoRepository;
 
     public List<GuiaDespachoModel> findAll(){
-        log.info("Obteniendo todas las guias de despacho");
-        return guiaDespachoRepository.findAll();
+        try {
+            log.info("Obteniendo todas las guias de despacho");
+            return guiaDespachoRepository.findAll();
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
     public GuiaDespachoModel findById(Integer id){
-        log.info("Obteniendo guia de despacho por id");
-        return guiaDespachoRepository.findById(id).get();
+            try {
+                log.info("Obteniendo guia de despacho por id");
+                return guiaDespachoRepository.findById(id).get();
+            }  catch (Exception e) {
+                log.error(e.getMessage());
+                return null;
+            }
     }
 
     public GuiaDespachoModel addGuia(GuiaDespachoModel guia){
-        log.info("Añadiendo guia de despacho");
-        return guiaDespachoRepository.save(guia);
+        try {
+            log.info("Añadiendo guia de despacho");
+            return guiaDespachoRepository.save(guia);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
     public boolean deleteById(Integer id){
-        if(guiaDespachoRepository.existsById(id)){
+        try{
             log.info("Eliminando guia de despacho");
             guiaDespachoRepository.deleteById(id);
             return true;
+        } catch (Exception e) {
+            log.info("No existe guia de despacho");
+            return false;
         }
-        log.info("No existe guia de despacho");
-        return false;
     }
 }

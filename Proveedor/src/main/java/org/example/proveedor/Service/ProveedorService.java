@@ -16,17 +16,32 @@ public class ProveedorService {
     private ProveedorRepository proveedorRepository;
 
     public ProveedorModel getProveedorById(Integer id) {
-        log.info("Obteniendo proveedor por id {}", id);
-        return proveedorRepository.findById(id).orElse(null);
+        try {
+            log.info("Obteniendo proveedor por id {}", id);
+            return proveedorRepository.findById(id).orElse(null);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
     public List<ProveedorModel> getTodosProveedores() {
-        log.info("Obteniendo todos proveedores");
-        return proveedorRepository.findAll();
+        try {
+            log.info("Obteniendo todos proveedores");
+            return proveedorRepository.findAll();
+        }catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
     public ProveedorModel createProveedor(ProveedorModel proveedorModel) {
-        log.info("Creando proveedor {}", proveedorModel);
-        return proveedorRepository.save(proveedorModel);
+        try {
+            log.info("Creando proveedor {}", proveedorModel);
+            return proveedorRepository.save(proveedorModel);
+        }  catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
+        }
     }
 }

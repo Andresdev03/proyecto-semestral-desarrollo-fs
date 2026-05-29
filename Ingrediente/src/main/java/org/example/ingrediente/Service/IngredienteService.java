@@ -15,26 +15,43 @@ public class IngredienteService {
     private IngredienteRepository ingredienteRepository;
 
     public List<IngredienteModel> getIngredientes(){
-        log.info("Obteniendo todos los ingredientes");
-        return ingredienteRepository.findAll();
+        try {
+            log.info("Obteniendo todos los ingredientes");
+            return ingredienteRepository.findAll();
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
     public IngredienteModel getIngredienteById(Integer id){
-        log.info("Obteniendo ingrediente por id {}", id);
-        return ingredienteRepository.findById(id).get();
+        try {
+            log.info("Obteniendo ingrediente por id {}", id);
+            return ingredienteRepository.findById(id).get();
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
     public IngredienteModel addIngrediente(IngredienteModel newIngrediente){
-        log.info("Creando nuevo ingrediente {}", newIngrediente);
-        return ingredienteRepository.save(newIngrediente);
+        try {
+            log.info("Creando nuevo ingrediente {}", newIngrediente);
+            return ingredienteRepository.save(newIngrediente);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
     public boolean deleteIngrediente(Integer id){
-        if(ingredienteRepository.existsById(id)){
+
+        try{
             log.info("Eliminando ingrediente {}", id);
             ingredienteRepository.deleteById(id);
             return true;
-        }else{
+        }catch (Exception e){
+            log.error(e.getMessage());
             return false;
         }
     }
