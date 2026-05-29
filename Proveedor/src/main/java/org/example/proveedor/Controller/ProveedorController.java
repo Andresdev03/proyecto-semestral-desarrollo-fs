@@ -18,8 +18,21 @@ public class ProveedorController {
     private ProveedorService proveedorService;
 
     @GetMapping
-    public List<ProveedorModel> findAll() {
-        return proveedorService.getTodosProveedores();
+    public ResponseEntity<List<ProveedorModel>> findAll() {
+        List<ProveedorModel> proveedores = proveedorService.getTodosProveedores();
+        if (proveedores.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(proveedores);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProveedorModel> findById(@PathVariable Integer id) {
+        ProveedorModel proveedor =  proveedorService.getProveedorById(id);
+        if(proveedor == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(proveedor);
     }
 
     @PostMapping
