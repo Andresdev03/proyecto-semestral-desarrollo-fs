@@ -42,12 +42,6 @@ public class BoletaController {
 
     }
 
-    @GetMapping("/pedido/{idPedido}")
-    public ResponseEntity<List<Boleta>> buscarPorIdPedido (@PathVariable Integer idPedido){
-        List<Boleta> lista = boletaService.buscarPorIdPedido(idPedido);
-        return new ResponseEntity<>(lista, HttpStatus.OK);
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<Boleta> modificarPorId(@PathVariable Integer id, @Valid @RequestBody Boleta boleta){
         Boleta boletaNueva = boletaService.modificarPorId(id, boleta);
