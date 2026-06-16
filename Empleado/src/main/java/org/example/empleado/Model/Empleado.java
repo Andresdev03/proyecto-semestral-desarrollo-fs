@@ -24,6 +24,7 @@ import java.time.LocalDate;
 public class Empleado {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotBlank(message = "Debe incluir run.")
     @Size(min = 8, max = 9)
     @Schema(description = "Run del empleado, sin DV.", example = "20680568")

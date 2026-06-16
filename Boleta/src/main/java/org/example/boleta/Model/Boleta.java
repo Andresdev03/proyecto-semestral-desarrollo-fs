@@ -1,10 +1,7 @@
 package org.example.boleta.Model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -26,6 +23,7 @@ import java.time.LocalDate;
 public class Boleta {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull(message = "Debe incluir un ID.")
     @Schema(description = "ID de la boleta.", example = "1")
     @Column(name = "id_boleta")

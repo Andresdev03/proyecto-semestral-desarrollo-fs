@@ -13,5 +13,7 @@ public interface TurnoRepository extends JpaRepository<Turno, Integer> {
     List<Turno> findByTipoTurno(String tipoTurno);
 
 
+    List<Turno> findByIdSucursal(Integer idSucursal);
 
+    List<Turno> findByRunEmpleado(String runEmpleado);
 }
