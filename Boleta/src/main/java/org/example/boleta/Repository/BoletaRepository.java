@@ -12,6 +12,5 @@ public interface BoletaRepository extends JpaRepository<Boleta, Integer> {
     List<Boleta> findByMetodoPagoBoleta(String metodoPagoBoleta);
 
 
-
-
+    List<Boleta> findByIdPedido(Integer idPedido);
 }
