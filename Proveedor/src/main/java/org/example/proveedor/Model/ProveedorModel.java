@@ -3,6 +3,7 @@ package org.example.proveedor.Model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,8 +23,7 @@ public class ProveedorModel {
     @Column(name="rut_proveedor", nullable=false, unique=true, length=9)
     private String rutProveedor;
 
-    @Size(min=1)
-    @NotBlank
+    @NotNull
     @Column(name="dv_proveedor", nullable=false, length=1, columnDefinition = "CHAR(1)")
     private Character dvProveedor;
 

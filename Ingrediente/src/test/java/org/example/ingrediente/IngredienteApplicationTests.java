@@ -24,8 +24,15 @@ class IngredienteApplicationTests {
 	@Test
 	@DisplayName("Revisando")
 	void test1() {
-		IngredienteModel ingredienteModel = ingredienteService.getIngredienteById(1);
-		log.info(ingredienteModel.toString());
+		IngredienteModel ingrediente = new IngredienteModel();
+		ingrediente.setNombreIngrediente("Harina Test");
+		ingrediente.setStockIngrediente(java.math.BigDecimal.ONE);
+		ingrediente.setPrecioUnitario(java.math.BigDecimal.TEN);
+		ingrediente.setIdProveedor(1);
+		IngredienteModel saved = ingredienteService.addIngrediente(ingrediente);
 
+		IngredienteModel ingredienteModel = ingredienteService.getIngredienteById(saved.getId());
+		assertNotNull(ingredienteModel);
+		log.info(ingredienteModel.toString());
 	}
 }
