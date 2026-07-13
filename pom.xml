@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>proyecto-semestral-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Proyecto Semestral Parent</name>
+    <description>Root aggregator for the Cafeteria Management System microservices</description>
+
+    <modules>
+        <module>EurekaServer</module>
+        <module>Gateway</module>
+        <module>Region</module>
+        <module>Comuna</module>
+        <module>Sucursal</module>
+        <module>Producto</module>
+        <module>Proveedor</module>
+        <module>Pedido</module>
+        <module>Ingrediente</module>
+        <module>GuiaDespacho</module>
+        <module>Factura</module>
+        <module>Empleado</module>
+        <module>Contrato</module>
+        <module>Boleta</module>
+        <module>Turno</module>
+    </modules>
+</project>

@@ -75,4 +75,26 @@ public class ProveedorServiceTest {
         assertThat(list).isNotEmpty();
         assertThat(list.stream().anyMatch(p -> p.getNombreProveedor().equals("Proveedor Test 3"))).isTrue();
     }
+
+    @Test
+    public void testDeleteProveedor() {
+        ProveedorModel proveedor = new ProveedorModel();
+        proveedor.setRutProveedor("121212121");
+        proveedor.setDvProveedor('K');
+        proveedor.setEmailProveedor("proveedordelete@test.com");
+        proveedor.setNombreProveedor("Proveedor Delete Test");
+        proveedor.setDireccionProveedor("Direccion Delete 123");
+        proveedor.setTelefonoProveedor("+56999999999");
+        proveedor.setIdRegion(4);
+        proveedor.setIdComuna(4);
+
+        ProveedorModel saved = proveedorService.createProveedor(proveedor);
+        Integer id = saved.getId();
+
+        boolean deleted = proveedorService.deleteById(id);
+        assertThat(deleted).isTrue();
+
+        ProveedorModel found = proveedorService.getProveedorById(id);
+        assertThat(found).isNull();
+    }
 }
