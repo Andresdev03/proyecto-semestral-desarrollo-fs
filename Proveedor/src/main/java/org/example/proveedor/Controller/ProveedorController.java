@@ -58,4 +58,17 @@ public class ProveedorController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar un proveedor por ID",
+            description = "Endpoint para eliminar un proveedor de la BBDD mediante su ID")
+    @ApiResponse(responseCode = "200", description = "Eliminación exitosa")
+    @ApiResponse(responseCode = "404", description = "Eliminación fallida, no se ha encontrado el recurso")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        boolean result = proveedorService.deleteById(id);
+        if (result) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

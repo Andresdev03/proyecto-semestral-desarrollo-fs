@@ -44,4 +44,19 @@ public class ProveedorService {
             return null;
         }
     }
+
+    public boolean deleteById(Integer id) {
+        try {
+            log.info("Eliminando proveedor con id {}", id);
+            if (proveedorRepository.existsById(id)) {
+                proveedorRepository.deleteById(id);
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return false;
+        }
+    }
 }
+
