@@ -17,6 +17,9 @@ public class BoletaService {
     @Autowired
     private BoletaRepository boletaRepository;
 
+    @Autowired
+    private PedidoClient pedidoClient;
+
     public Boleta registrar(Boleta boleta){
         try{
             log.info("Intentando registrar boleta para pedido {}", boleta.getIdPedido());
